@@ -68,4 +68,16 @@ export class UserService {
       where: { id },
     });
   }
+
+  /**
+   * Check if an id exists on database
+   *
+   * @param id
+   * @throws NotFoundException
+   */
+  async exists(id: number): Promise<boolean> {
+    return !!(await this.prisma.user.count({
+      where: { id },
+    }));
+  }
 }

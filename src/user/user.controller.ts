@@ -28,7 +28,7 @@ export class UserController {
   }
 
   @Get(':id')
-  public async find(@Param('id') id: number) {
+  public async find(@Param('id', ParseIntPipe) id: number) {
     const user = await this.userService.find(id);
     return { user };
   }
