@@ -26,12 +26,14 @@ export class UserController {
 
   @Get(':id')
   public async find(@Param('id') id: number) {
-    return { id };
+    const user = await this.userService.find(id);
+    return { user };
   }
 
   @Get()
   public async list() {
-    return { users: [] };
+    const users = await this.userService.list();
+    return { users };
   }
 
   @Put(':id')
@@ -39,7 +41,8 @@ export class UserController {
     @Param('id', ParseIntPipe) id: number,
     @Body() body: UpdateUserDTO,
   ) {
-    return { id, body };
+    const user = await this.userService.update(id, body);
+    return { user };
   }
 
   @Patch(':id')
@@ -47,11 +50,13 @@ export class UserController {
     @Param('id', ParseIntPipe) id: number,
     @Body() body: PatchUserDTO,
   ) {
-    return { id, body };
+    const user = await this.userService.update(id, body);
+    return { user };
   }
 
   @Delete(':id')
   public async delete(@Param('id', ParseIntPipe) id: number) {
-    return { id };
+    await this.userService.delete(id);
+    return { message: 'User deleted' };
   }
 }
